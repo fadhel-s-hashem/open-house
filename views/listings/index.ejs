@@ -6,20 +6,20 @@
     <title>index</title>
 </head>
 <body>
-    <h1> view all the listings</h1>
+    <h1> all the listings</h1>
 
     <ul>
         <% allList.forEach((item) => { %>
-           <li> owned by: <%= item.owner.username %></li>
-        <li>Price: <%= item.price%></li>
-        <li>street Addres: <%= item.streetAddres%></li>
-        <li>city: <%= item.city%></li>
-        <li>size: <%= item.size%></li>
-        <br>
+            <a href="/listings/<%= item._id %>">
+                Click here for more details
+            </a>
+            <li> owned by <%= item.owner.username %></li>
+            <li>Price: <%= item.price%></li>
+        <br> 
         <img src="<%= item.image%>" alt="house" width="200" height="180">
             <hr>
         <%})%>
-
+       
     </ul>
     
 </body>

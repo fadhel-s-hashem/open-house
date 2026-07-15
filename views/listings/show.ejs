@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1> Thi show page by <%= listing.owner.username %></h1>
+
+    <ul>
+        
+            
+            <li> owned by: <%= listing.owner.username %></li>
+        <li>Price: <%= listing.price%></li>
+        <li>street Addres: <%= listing.streetAddres%></li>
+        <li>city: <%= listing.city%></li>
+        <li>size: <%= listing.size%></li>
+        <br>
+        <img src="<%= listing.image%>" alt="house" width="200" height="180">
+            
+        
+        </a>
+    </ul>
+    
+</body>
+</html>
