@@ -35,12 +35,12 @@ const index = async (req, res) => {
 //=================================================================
 
 const show = async (req, res) => {
-  const listing = await Listing.findById(
+  const finidlisting = await Listing.findById(
     req.params.listingId
   ).populate('owner')
 
   res.render('listings/show.ejs', {
-    listing: listing,
+    finidlisting
   })
 }
 //==================================================================
