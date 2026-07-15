@@ -8,8 +8,10 @@ const methodOverride = require("method-override");
 const morgan = require("morgan");
 const session = require('express-session')
 const { MongoStore } = require('connect-mongo')
+const isSignedIN = require("./middleware/is-signed-in")
 
 const authCtrl = require('./controllers/auth')
+const listingsCtrl = require('./controllers/listings')
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : "3000";
@@ -43,7 +45,8 @@ app.get('/', (req, res) => {
     })
 })
 
-
+//routes===========================================================
+// aouth=========================================== authCtrl
 app.get('/auth/sign-up', authCtrl.showSignUpForm )
 app.post('/auth/sign-up', authCtrl.signUp)
 app.get('/auth/sign-in', authCtrl.showSignInForm)
@@ -58,6 +61,10 @@ app.get('/dashboard', async (req, res) => {
         user: req.session.user
     })
 })
+
+// Listings routr============================== listingsCtrl
+app.get('/listings/new', isSignedIN, listingsCtrl.showNewForm)
+app.post('/listings' , listingsCtrl.create)
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

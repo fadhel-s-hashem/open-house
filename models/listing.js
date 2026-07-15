@@ -9,10 +9,9 @@ const listingSchema = new mongoose.Schema({
     image: {
         type: String,
         default:' https://images.pexels.com/photos/37419422/pexels-photo-37419422.jpeg',
-
         
     },
-    streetAddress:{
+    streetAddres:{
         type: String,
         required: true,
     },
