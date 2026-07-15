@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+</head>
+<body>
+    <h1> view all the listings</h1>
+
+    <ul>
+        <% allList.forEach((item) => { %>
+        <li><%= item.price%></li>
+        <li><%= item.streetAddres%></li>
+        <li><%= item.city%></li>
+        <li><%= item.size%></li>
+        <li><%= item.image%></li>
+        
+            <hr>
+        <%})%>
+
+
+    </ul>
+    
+</body>
+</html>

@@ -3,7 +3,7 @@ const Listing = require('../models/listing')
 const showNewForm = (req, res) => {
     res.render("listings/new.ejs")
 }
-
+//=======================================
 const create = async (req, res) => {
     console.log(req.session) //
     const listingData = {}
@@ -19,11 +19,24 @@ const create = async (req, res) => {
 
     let createdList = await Listing.create(listingData)
 
-
   res.redirect('/listings')
 }
+//============================================================
+const index = async (req, res) => {
+    
+    let allList = await Listing.find()
+    // console.log(allList)
+    res.render('listings/index.ejs' , 
+       { allList: allList
+
+       })
+   
+    }
+//=================================================================
+
 
 module.exports = {
     showNewForm,
     create,
+    index,
 }

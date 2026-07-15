@@ -65,6 +65,7 @@ app.get('/dashboard', isSignedIn, async (req, res) => {
 // Listings routr============================== listingsCtrl
 app.get('/listings/new', isSignedIn, listingsCtrl.showNewForm)
 app.post('/listings' , listingsCtrl.create)
+app.get('/Listings' , listingsCtrl.index )
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
