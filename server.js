@@ -8,7 +8,9 @@ const methodOverride = require("method-override");
 const morgan = require("morgan");
 const session = require('express-session')
 const { MongoStore } = require('connect-mongo')
-const isSignedIN = require("./middleware/is-signed-in")
+
+const isSignedIn = require("./middleware/is-signed-in")
+const passUserToView = require("./middleware/pass-user-to-view")
 
 const authCtrl = require('./controllers/auth')
 const listingsCtrl = require('./controllers/listings')
@@ -38,12 +40,14 @@ app.use(session({
         mongoUrl: process.env.MONGODB_URI
     }),
 }))
+app.use(passUserToView)
 
 app.get('/', (req, res) => {
     res.render('home.ejs', {
         user: req.session.user,
     })
 })
+
 
 //routes===========================================================
 // aouth=========================================== authCtrl
@@ -53,17 +57,13 @@ app.get('/auth/sign-in', authCtrl.showSignInForm)
 app.post('/auth/sign-in', authCtrl.signIn)
 app.delete('/auth/sign-out', authCtrl.signOut)
 
-app.get('/dashboard', async (req, res) => {
-    if (!req.session.user){
-        return res.redirect('/auth/sign-in')
-    }
-    res.render('dashboard.ejs', {
-        user: req.session.user
-    })
+app.get('/dashboard', isSignedIn, async (req, res) => {
+    
+    res.render('dashboard.ejs')
 })
 
 // Listings routr============================== listingsCtrl
-app.get('/listings/new', isSignedIN, listingsCtrl.showNewForm)
+app.get('/listings/new', isSignedIn, listingsCtrl.showNewForm)
 app.post('/listings' , listingsCtrl.create)
 
 app.listen(port, () => {
