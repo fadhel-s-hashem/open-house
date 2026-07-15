@@ -27,7 +27,8 @@ const listingSchema = new mongoose.Schema({
     owner: {
         // to specfie it blong to the User
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
     favoritedBy:{},
 
