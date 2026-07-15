@@ -11,12 +11,17 @@
 
     <ul>
         
+           <% if (finidlisting.owner._id.equals(user._id) ) { %>
+                you own this
+           <% } else { %>
+            owned by: <%= finidlisting.owner.username %>
+        <%}%>
             
-            <li> owned by: <%= finidlisting.owner.username %></li>
         <li>Price: <%= finidlisting.price%></li>
         <li>street Addres: <%= finidlisting.streetAddres%></li>
         <li>city: <%= finidlisting.city%></li>
         <li>size: <%= finidlisting.size%></li>
+            
         <br>
         <img src="<%= finidlisting.image%>" alt="house" width="250" height="200">
             
