@@ -23,8 +23,8 @@ const create = async (req, res) => {
 }
 //============================================================
 const index = async (req, res) => {
-    
-    let allList = await Listing.find()
+    // populate eill look if any thin efrenced======
+    let allList = await Listing.find().populate('owner')
     // console.log(allList)
     res.render('listings/index.ejs' , 
        { allList: allList

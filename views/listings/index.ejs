@@ -10,15 +10,15 @@
 
     <ul>
         <% allList.forEach((item) => { %>
-        <li><%= item.price%></li>
-        <li><%= item.streetAddres%></li>
-        <li><%= item.city%></li>
-        <li><%= item.size%></li>
-        <li><%= item.image%></li>
-        
+           <li> owned by: <%= item.owner.username %></li>
+        <li>Price: <%= item.price%></li>
+        <li>street Addres: <%= item.streetAddres%></li>
+        <li>city: <%= item.city%></li>
+        <li>size: <%= item.size%></li>
+        <br>
+        <img src="<%= item.image%>" alt="house" width="200" height="180">
             <hr>
         <%})%>
-
 
     </ul>
     
