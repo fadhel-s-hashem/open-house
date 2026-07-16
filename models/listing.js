@@ -45,7 +45,11 @@ const listingSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-    favoritedBy:{},
+    favoritedByUser:[{
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "User",
+    }],
+
     questions:[questionSchema],
 
 // timestamp is for detecting time

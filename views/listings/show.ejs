@@ -31,7 +31,25 @@
         <img src="<%= finidlisting.image%>" alt="house" width="250" height="200">
       
     </ul>
+    <hr>
+<!-- =============================================================== -->
+<section>
+    <h2>Favorites</h2>
+    <p> favorited-by <%= finidlisting.favoritedByUser.length%>  people</p>
+    <%if (userHasFavorited) {%>
+        <form action="">
+            <button type="submit"> ❌</button>
+        </form>
 
+    <%} else {%>
+    <form action="/Listings/<%= finidlisting._id%>/favorited-by/<%= user._id%>" method="post">
+        <button type="submit"> Favorite </button>
+    </form>
+   <% }%>
+    
+
+</section>
+<!-- =============================================================== -->
     <section>
         <h2> Questions about this property?</h2>
 

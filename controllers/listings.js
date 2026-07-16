@@ -39,8 +39,13 @@ const show = async (req, res) => {
     req.params.listingId
   ).populate('owner').populate('questions.author')
 
+  const userHasFavorited = finidlisting.favoritedByUser.some((user) =>{
+    return user.equals(req.session.user._id)
+  })
+
   res.render('listings/show.ejs', {
-    finidlisting
+    finidlisting,
+    userHasFavorited : userHasFavorited,
   })
 }
 //==================================================================
@@ -65,7 +70,7 @@ const deleteListing = async (req, res) => {
 
 }
 //==============================================================
-// shoe edit page
+// show edit page
 // dont forge populate to check user
 const editList = async (req,res) => {
   let updatedList = await Listing.findById(req.params.listingId).populate('owner')
@@ -89,6 +94,16 @@ const update = async (req, res) => {
      res.redirect(`/listings/${req.params.listingId}`)
     
 }
+//===========================================================
+
+// controllers/listings.js
+
+const favorite = async (req, res) => {
+    await Listing.findByIdAndUpdate(req.params.listingId, {
+      $push: { favoritedByUser: req.params.userId },
+    })
+    res.redirect(`/listings/${req.params.listingId}`)
+}
 
 
 module.exports = {
@@ -99,4 +114,5 @@ module.exports = {
     deleteListing,
     editList,
     update,
+    favorite,
 }
