@@ -71,11 +71,12 @@ app.get('/Listings/:listingId' , listingsCtrl.show)
 app.delete('/Listings/:listingId' , listingsCtrl.deleteListing)
 app.get('/Listings/:listingId/edit' , listingsCtrl.editList)
 app.put('/Listings/:listingId' , listingsCtrl.update)
-app.post('/Listings/:listingId/questions' , questionsCtrl.create)
+app.post('/Listings/:listingId/favorited-by/:userId' , isSignedIn, listingsCtrl.favorite)
+app.delete('/Listings/:listingId/favorited-by/:userId' , isSignedIn, listingsCtrl.unfavorite)
 
 //questions route====================================
+app.post('/Listings/:listingId/questions' , questionsCtrl.create)
 
-app.post('/Listings/:listingId/favorited-by/:userId' , isSignedIn, listingsCtrl.favorite)
 
 app.get('/*splat' , (req,res) => {
     res.render('error.ejs' , {

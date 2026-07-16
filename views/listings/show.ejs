@@ -37,7 +37,7 @@
     <h2>Favorites</h2>
     <p> favorited-by <%= finidlisting.favoritedByUser.length%>  people</p>
     <%if (userHasFavorited) {%>
-        <form action="">
+        <form action="/Listings/<%= finidlisting._id%>/favorited-by/<%= user._id%>?_method=DELETE" method="post">
             <button type="submit"> ❌</button>
         </form>
 

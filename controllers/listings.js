@@ -96,7 +96,6 @@ const update = async (req, res) => {
 }
 //===========================================================
 
-// controllers/listings.js
 
 const favorite = async (req, res) => {
     await Listing.findByIdAndUpdate(req.params.listingId, {
@@ -105,6 +104,13 @@ const favorite = async (req, res) => {
     res.redirect(`/listings/${req.params.listingId}`)
 }
 
+//=========================================================
+const unfavorite =  async (req, res) => {
+     await Listing.findByIdAndUpdate(req.params.listingId, {
+      $pull: { favoritedByUser: req.params.userId },
+    })
+    res.redirect(`/listings/${req.params.listingId}`)
+}
 
 module.exports = {
     showNewForm,
@@ -115,4 +121,5 @@ module.exports = {
     editList,
     update,
     favorite,
+    unfavorite,
 }
