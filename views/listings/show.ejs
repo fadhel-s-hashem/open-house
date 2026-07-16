@@ -13,10 +13,13 @@
         
            <% if (finidlisting.owner._id.equals(user._id) ) { %>
                 you own this
+                <form action="/Listings/<%= finidlisting._id%>?_method=DELETE" method="post">
+                    <button type="submit">  Delete this list</button>
+                </form>
            <% } else { %>
             owned by: <%= finidlisting.owner.username %>
         <%}%>
-            
+           <br> 
         <li>Price: <%= finidlisting.price%></li>
         <li>street Addres: <%= finidlisting.streetAddres%></li>
         <li>city: <%= finidlisting.city%></li>

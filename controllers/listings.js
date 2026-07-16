@@ -45,9 +45,15 @@ const show = async (req, res) => {
 }
 //==================================================================
 
+const deleteListing = async (req,res) => {
+    await Listing.findByIdAndDelete(req.params.listingId)
+    res.redirect('/Listings')
+}
+
 module.exports = {
     showNewForm,
     create,
     index,
     show,
+    deleteListing,
 }

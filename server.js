@@ -67,6 +67,7 @@ app.get('/listings/new', isSignedIn, listingsCtrl.showNewForm)
 app.post('/listings' , listingsCtrl.create)
 app.get('/Listings' , listingsCtrl.index )
 app.get('/Listings/:listingId' , listingsCtrl.show)
+app.delete('/Listings/:listingId' , listingsCtrl.deleteListing)
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
