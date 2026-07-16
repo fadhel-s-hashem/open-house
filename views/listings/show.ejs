@@ -16,6 +16,8 @@
                 <form action="/Listings/<%= finidlisting._id%>?_method=DELETE" method="post">
                     <button type="submit">  Delete this list</button>
                 </form>
+                
+                
            <% } else { %>
             owned by: <%= finidlisting.owner.username %>
         <%}%>

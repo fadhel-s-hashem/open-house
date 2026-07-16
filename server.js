@@ -72,11 +72,11 @@ app.get('/Listings/:listingId/edit' , listingsCtrl.editList)
 app.put('/Listings/:listingId' , listingsCtrl.update)
 
 
-// app.get('/*splat' , (req,res) => {
-//     res.render('error.ejs' , {
-//         msg: 404
-//     })
-// })
+app.get('/*splat' , (req,res) => {
+    res.render('error.ejs' , {
+        msg: 404
+    })
+})
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
