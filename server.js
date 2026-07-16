@@ -8,6 +8,8 @@ const methodOverride = require("method-override");
 const morgan = require("morgan");
 const session = require('express-session')
 const { MongoStore } = require('connect-mongo')
+// for multer and adding files
+const upload = require('./config/multer.js')
 
 const isSignedIn = require("./middleware/is-signed-in")
 const passUserToView = require("./middleware/pass-user-to-view")
@@ -65,12 +67,14 @@ app.get('/dashboard', isSignedIn, async (req, res) => {
 
 // Listings routr============================== listingsCtrl
 app.get('/listings/new', isSignedIn, listingsCtrl.showNewForm)
-app.post('/listings' , listingsCtrl.create)
+// change to add image (upload.single('image'))
+app.post('/listings',isSignedIn, upload.single('image'), listingsCtrl.create)
 app.get('/Listings' , listingsCtrl.index )
 app.get('/Listings/:listingId' , listingsCtrl.show)
 app.delete('/Listings/:listingId' , listingsCtrl.deleteListing)
 app.get('/Listings/:listingId/edit' , listingsCtrl.editList)
-app.put('/Listings/:listingId' , listingsCtrl.update)
+// change to add image (upload.single('image'))
+app.put('/Listings/:listingId' , isSignedIn,  upload.single('image'), listingsCtrl.update)
 app.post('/Listings/:listingId/favorited-by/:userId' , isSignedIn, listingsCtrl.favorite)
 app.delete('/Listings/:listingId/favorited-by/:userId' , isSignedIn, listingsCtrl.unfavorite)
 

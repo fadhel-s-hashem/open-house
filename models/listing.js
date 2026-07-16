@@ -12,7 +12,7 @@ const questionSchema = new mongoose.Schema({
         required: true,
     },
 
-
+// timestamp is for detecting time
 }, { timestamps: true })
 
 const listingSchema = new mongoose.Schema({
@@ -21,11 +21,18 @@ const listingSchema = new mongoose.Schema({
     required: true,
     min: 0,
     },
+    //=======
     image: {
+         url: {
         type: String,
-        default:' https://images.pexels.com/photos/37419422/pexels-photo-37419422.jpeg',
-        
+        required: true,
+      },
+      publicId: {
+        type: String,
+        required: true,
+      },
     },
+    //=========
     streetAddres:{
         type: String,
         required: true,

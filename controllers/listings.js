@@ -1,29 +1,66 @@
 const Listing = require('../models/listing')
 
+const cloudinary = require('../config/cloudinary')
+///////////////////////////////////////////////////////////
+const uploadImage = (fileBuffer) => {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        folder: 'open-house/listings',
+        resource_type: 'image',
+      },
+      (error, result) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(result)
+        }
+      }
+    )
+
+    uploadStream.end(fileBuffer)
+  })
+}
+
+//=======================================================
 const showNewForm = (req, res) => {
     res.render("listings/new.ejs")
 }
 //=======================================
 const create = async (req, res) => {
-    console.log(req.session) //
+console.log(req.body)
+console.log(req.file)
+  if (!req.file){
+   return res.render('error.ejs' , {
+     msg: 'Please select an image'
+   })
+ }
+  
+  const uploadedImage = await uploadImage(req.file.buffer)  
     const listingData = {}
     listingData.price = req.body.price 
     listingData.streetAddres = req.body.streetAddres 
     listingData.city = req.body.city 
     listingData.size = req.body.size 
     listingData.owner = req.session.user._id
-     //
-     if ( req.body.image) {
+    listingData.image = {
+       url: uploadedImage.secure_url,
+      publicId: uploadedImage.public_id,
+    }
+
+    
+     if (req.body.image) {
         listingData.image = req.body.image
      }
 
     let createdList = await Listing.create(listingData)
+console.log(listingData);
 
   res.redirect('/listings')
 }
 //============================================================
 const index = async (req, res) => {
-    // populate eill look if any thin efrenced======
+    // populate will look if any thin efrenced======
     let allList = await Listing.find().populate('owner')
     // console.log(allList)
     res.render('listings/index.ejs' , 
@@ -82,13 +119,24 @@ const editList = async (req,res) => {
 //===========================================================
 // update from edit page
 const update = async (req, res) => {
+    const finidlisting = await Listing.findById(req.params.listingId)
+    const oldPublic = finidlisting.image?.publicId
   const editedList = {}
 
    editedList.price = req.body.price 
     editedList.streetAddres = req.body.streetAddres 
     editedList.city = req.body.city 
     editedList.size = req.body.size 
-    editedList.image = req.body.image 
+    // editedList.image = req.body.image 
+
+    if (req.file) {
+      const uploadedImage = await uploadImage(req.file.buffer) 
+
+      finidlisting.image = {
+         url: uploadedImage.secure_url,
+      publicId: uploadedImage.public_id,
+      }
+    }
 
      await Listing.findByIdAndUpdate(req.params.listingId, editedList, { new: true })
      res.redirect(`/listings/${req.params.listingId}`)
