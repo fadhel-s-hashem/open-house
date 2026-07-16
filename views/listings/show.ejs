@@ -41,10 +41,12 @@
         </form>
         <h3>questiond from user</h3>
         <%finidlisting.questions.forEach((item) =>{%>
-            <p><%=item.text%></p>
+            <p><%= finidlisting.owner.username %> add coment:
+                <%=item.text%></p>
         <%})%>
     
     </section>
+
 
    <button> <a href='/Listings'> return to index</a></button>
     
