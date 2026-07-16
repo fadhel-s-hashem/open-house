@@ -1,15 +1,18 @@
 const mongoose = require('mongoose')
 
-const questioScheima = new mongoose.Schema({
+const questionSchema = new mongoose.Schema({
     text: {
         type: String,
         required: true,
     }, 
+
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
     },
+
+
 }, { timestamps: true })
 
 const listingSchema = new mongoose.Schema({
@@ -43,6 +46,7 @@ const listingSchema = new mongoose.Schema({
         required: true,
     },
     favoritedBy:{},
+    questions:[questionSchema],
 
 // timestamp is for detecting time
 }, { timestamps: true })

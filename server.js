@@ -14,6 +14,7 @@ const passUserToView = require("./middleware/pass-user-to-view")
 
 const authCtrl = require('./controllers/auth')
 const listingsCtrl = require('./controllers/listings')
+const questionsCtrl = require("./controllers/questions")
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : "3000";
@@ -71,6 +72,8 @@ app.delete('/Listings/:listingId' , listingsCtrl.deleteListing)
 app.get('/Listings/:listingId/edit' , listingsCtrl.editList)
 app.put('/Listings/:listingId' , listingsCtrl.update)
 
+//questions route====================================
+app.post('/Listings/:listingId/questions' , questionsCtrl.create)
 
 app.get('/*splat' , (req,res) => {
     res.render('error.ejs' , {

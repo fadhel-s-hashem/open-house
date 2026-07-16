@@ -32,6 +32,20 @@
       
     </ul>
 
+    <section>
+        <h2> Questions about this property?</h2>
+
+        <form action="/Listings/<%= finidlisting._id%>/questions" method="post">
+            <textarea name="text" rows="4" required></textarea>
+            <button type="submit"> Ask Questions</button>
+        </form>
+        <h3>questiond from user</h3>
+        <%finidlisting.questions.forEach((item) =>{%>
+            <p><%=item.text%></p>
+        <%})%>
+    
+    </section>
+
    <button> <a href='/Listings'> return to index</a></button>
     
 </body>
