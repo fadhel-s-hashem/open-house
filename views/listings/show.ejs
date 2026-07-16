@@ -10,7 +10,7 @@
     <h1> This show page added by <%= finidlisting.owner.username %></h1>
 
     <ul>
-        
+        <!-- // verfication and delete -->
            <% if (finidlisting.owner._id.equals(user._id) ) { %>
                 you own this
                 <form action="/Listings/<%= finidlisting._id%>?_method=DELETE" method="post">
@@ -27,10 +27,10 @@
             
         <br>
         <img src="<%= finidlisting.image%>" alt="house" width="250" height="200">
-            
-        
-        </a>
+      
     </ul>
+
+   <button> <a href='/Listings'> return to index</a></button>
     
 </body>
 </html>

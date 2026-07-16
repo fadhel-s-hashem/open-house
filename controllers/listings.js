@@ -45,10 +45,51 @@ const show = async (req, res) => {
 }
 //==================================================================
 
-const deleteListing = async (req,res) => {
-    await Listing.findByIdAndDelete(req.params.listingId)
-    res.redirect('/Listings')
+// const deleteListing = async (req,res) => {
+//     await Listing.findByIdAndDelete(req.params.listingId)
+//     res.redirect('/Listings')
+// }
+
+// more advanced way===== (DeLETE)
+const deleteListing = async (req, res) => {
+    const finidlisting = await Listing.findById(req.params.listingId)
+
+    if (finidlisting.owner.equals(req.session.user._id)) {
+        await Listing.findByIdAndDelete(req.params.listingId)
+        res.redirect('/listings')
+    } else {
+        res.render("error.ejs" , {
+          msg: "you dont have premission"
+        })
+    }
+
 }
+//==============================================================
+// shoe edit page
+// dont forge populate to check user
+const editList = async (req,res) => {
+  let updatedList = await Listing.findById(req.params.listingId).populate('owner')
+  // console.log(updatedList)
+  res.render('listings/editList.ejs' ,{
+    finidlisting: updatedList
+  })
+}
+//===========================================================
+// update from edit page
+const update = async (req, res) => {
+  const editedList = {}
+
+   editedList.price = req.body.price 
+    editedList.streetAddres = req.body.streetAddres 
+    editedList.city = req.body.city 
+    editedList.size = req.body.size 
+    editedList.image = req.body.image 
+
+     await Listing.findByIdAndUpdate(req.params.listingId, editedList, { new: true })
+     res.redirect(`/listings/${req.params.listingId}`)
+    
+}
+
 
 module.exports = {
     showNewForm,
@@ -56,4 +97,6 @@ module.exports = {
     index,
     show,
     deleteListing,
+    editList,
+    update,
 }

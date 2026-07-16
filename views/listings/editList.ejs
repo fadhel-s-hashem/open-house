@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit</title>
+</head>
+<body>
+    <H2> Hello <%= finidlisting.owner.username %> </H2>
+    <h3> you can edit this list</h3>
+
+    <form action="/Listings/<%= finidlisting._id%>?_method=PUT" method="post">
+        <label for="">Add Price:</label>
+        <input type="number" name="price" min="0" value="<%= finidlisting.price%>">
+
+        <label for=""> Add Street addres:</label>
+        <input type="text" name="streetAddres" value="<%= finidlisting.streetAddres%>">
+
+        <label for=""> Add the City:</label>
+        <input type="text" name="city" value="<%= finidlisting.city%>">
+
+        <label for=""> Add the size:</label>
+        <input type="number" name="size" min="0" value="<%= finidlisting.size%>">
+
+        <label for=""> image</label>
+        <input type="text" name="image" value="<%= finidlisting.image%>">
+        <br>
+        <p>This is last image you want to edit it ?</p>
+        <img src="<%= finidlisting.image%>" alt="house" width="250" height="200">
+        
+        <br>
+        <button type="submit"> Edit this List</button>
+
+    </form>
+</body>
+</html>
