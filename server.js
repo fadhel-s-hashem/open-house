@@ -3,6 +3,14 @@ dotenv.config();
 const express = require("express");
 const app = express();
 
+const path = require('path');
+
+// view engine and static assets for performance
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+// serve static files from /public with caching to make asset delivery fast
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1d' }));
+
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const morgan = require("morgan");

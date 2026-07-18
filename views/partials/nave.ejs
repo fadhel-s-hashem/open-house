@@ -1,0 +1,18 @@
+<header class="navbar">
+  <div class="container nav-left">
+    <a href="/" class="brand">Open House</a>
+    <a href="/Listings" aria-label="Listings">Listings</a>
+  </div>
+  <div class="container nav-right">
+    <% if (user) { %>
+      <span style="opacity:0.9;margin-right:0.5rem">Hello, <%= user.username %></span>
+      <form action="/auth/sign-out?_method=DELETE" method="POST" style="display:inline">
+        <button class="nav-btn" type="submit">Sign out</button>
+      </form>
+      <a href="/dashboard" class="btn">Dashboard</a>
+    <% } else { %>
+      <a href="/auth/sign-in">Sign in</a>
+      <a href="/auth/sign-up" class="btn">Sign up</a>
+    <% } %>
+  </div>
+</header>
